@@ -24,6 +24,15 @@ public class University {
                 .map(Professor::getAge)
                 .findFirst()
                 .get();
+
+        /**
+         * int minAge = professors.get(0).getAge();
+         * for (int i = 0; i < professors.size(); i++) {
+         *     minAge = Math.min(minAge, professors.get(i).getAge());
+         * }
+         *
+         * return minAge;
+         */
     }
 
     public List<Professor> trovaGiovani() {
@@ -34,5 +43,15 @@ public class University {
         return professors.stream()
                 .filter(dipendente -> dipendente.getAge() == etaMinima())
                 .collect(Collectors.toList());
+
+        /**
+         * List<Professors> toReturn = new ArrayList<>();
+         * for (Professor professor : professors) {
+         *      if (professor.getAge() < etaMinima()) {
+         *          toReturn.add(professor);
+         *      }
+         *  }
+         *  return toReturn;
+         */
     }
 }
