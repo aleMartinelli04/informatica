@@ -52,45 +52,36 @@ public class Gui extends JFrame {
             }
         });
 
-        mostraCerchioButton.addActionListener(ignored -> showData(cerchio, "Cerchio"));
-        mostraCilindroButton.addActionListener(ignored -> showData(cilindro, "Cilindro"));
+        mostraCerchioButton.addActionListener(ignored -> {
+            try {
+                showData(cerchio);
+            } catch (Exception e) {
+                showException(e);
+            }
+        });
+        mostraCilindroButton.addActionListener(ignored -> {
+            try {
+                showData(cilindro);
+            } catch (Exception e) {
+                showException(e);
+            }
+        });
     }
 
     private void calcolaAreaCerchio(ActionEvent ignored) throws Exception {
-        double raggio = Double.parseDouble(raggioCerchioField.getText());
-
-        if (cerchio == null) {
-            cerchio = new Cerchio(raggio);
-        } else {
-            cerchio.setRaggio(raggio);
-        }
+        updateCerchio();
 
         showData(cerchio.area(), "Area del cerhio");
     }
 
     private void calcolaAreaCilindro(ActionEvent ignored) throws Exception {
-        double raggio = Double.parseDouble(raggioCilindroField.getText());
-        double altezza = Double.parseDouble(altezzaCilindroField.getText());
-
-        if (cilindro == null) {
-            cilindro = new Cilindro(raggio, altezza);
-        } else {
-            cilindro.setRaggio(raggio);
-        }
+        updateCilindro();
 
         showData(cilindro.area(), "Area del cilindro");
     }
 
     private void calcolaVolumeCilindro(ActionEvent ignored) throws Exception {
-        double raggio = Double.parseDouble(raggioCilindroField.getText());
-        double altezza = Double.parseDouble(altezzaCilindroField.getText());
-
-        if (cilindro == null) {
-            cilindro = new Cilindro(raggio, altezza);
-        } else {
-            cilindro.setRaggio(raggio);
-            cilindro.setAltezza(altezza);
-        }
+        updateCilindro();
 
         showData(cilindro.volume(), "Volume del cilindro");
     }
@@ -106,5 +97,39 @@ public class Gui extends JFrame {
         }
 
         JOptionPane.showMessageDialog(this, data.toString(), name, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showData(Cerchio cerchio) throws Exception {
+        updateCerchio();
+
+        showData(cerchio, "Cerchio");
+    }
+
+    private void showData(Cilindro cilindro) throws Exception {
+        updateCilindro();
+
+        showData(cilindro, "Cilindro");
+    }
+
+    private void updateCerchio() throws Exception {
+        double raggio = Double.parseDouble(raggioCerchioField.getText());
+
+        if (cerchio == null) {
+            cerchio = new Cerchio(raggio);
+        } else {
+            cerchio.setRaggio(raggio);
+        }
+    }
+
+    private void updateCilindro() throws Exception {
+        double raggio = Double.parseDouble(raggioCilindroField.getText());
+        double altezza = Double.parseDouble(altezzaCilindroField.getText());
+
+        if (cilindro == null) {
+            cilindro = new Cilindro(raggio, altezza);
+        } else {
+            cilindro.setRaggio(raggio);
+            cilindro.setAltezza(altezza);
+        }
     }
 }
