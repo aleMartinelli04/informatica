@@ -1,0 +1,1 @@
+Partecipante{codiceFiscale='aaaaaaaaaaaaaaaa', nome='a', classe=1, punteggio=0}
