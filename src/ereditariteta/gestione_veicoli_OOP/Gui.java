@@ -37,6 +37,9 @@ public class Gui extends JFrame {
     private JComboBox<Ordinamenti> visualizzazioneOrdinamentoBox;
     private JTextField visualizzazionePrezzoVenditaField;
 
+    private JTextField eliminazioneCodiceVeicoloField;
+    private JButton eliminazioneButton;
+
     private final DefaultListModel<Veicolo> listModel;
 
     public Gui() throws InterruptedException {
@@ -65,6 +68,32 @@ public class Gui extends JFrame {
         visualizzazioneList.setModel(listModel);
         visualizzazioneOrdinaButton.addActionListener(this::ordinaVeicoli);
         visualizzazioneSalvaButton.addActionListener(this::salvaModifiche);
+
+        eliminazioneButton.addActionListener(this::eliminaVeicolo);
+    }
+
+    private void eliminaVeicolo(ActionEvent ignored) {
+        String codice = eliminazioneCodiceVeicoloField.getText();
+        if (codice.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Inserire un codice", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<Veicolo> veicoli = Collections.list(listModel.elements());
+
+        Veicolo veicolo = veicoli.stream()
+                .filter(v -> v.getCodice().equalsIgnoreCase(codice))
+                .findFirst()
+                .orElse(null);
+
+        if (veicolo == null) {
+            JOptionPane.showMessageDialog(this, "Veicolo non trovato", "Errore", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Veicolo eliminato", "Info", JOptionPane.INFORMATION_MESSAGE);
+        veicoli.remove(veicolo);
+        updateJList(veicoli);
     }
 
     private void salvaModifiche(ActionEvent ignored) {
@@ -94,11 +123,15 @@ public class Gui extends JFrame {
     private void ordinaVeicoli(ActionEvent ignored) {
         List<Veicolo> veicoli = Collections.list(listModel.elements());
 
-        ListSelectionListener listener = visualizzazioneList.getListSelectionListeners()[0];
-        visualizzazioneList.removeListSelectionListener(listener);
-
         Comparator<Veicolo> comparator = visualizzazioneOrdinamentoBox.getItemAt(visualizzazioneOrdinamentoBox.getSelectedIndex()).getComparator();
         veicoli.sort(comparator);
+
+        updateJList(veicoli);
+    }
+
+    private void updateJList(List<Veicolo> veicoli) {
+        ListSelectionListener listener = visualizzazioneList.getListSelectionListeners()[0];
+        visualizzazioneList.removeListSelectionListener(listener);
 
         listModel.clear();
         for (Veicolo v : veicoli) {
@@ -186,7 +219,7 @@ public class Gui extends JFrame {
             inputRuoteSpinner.setValue(0);
             inputSiRadioButton.setSelected(true);
 
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Inserire un numero valido", "Errore", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
