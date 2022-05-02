@@ -1,5 +1,9 @@
 package ereditariteta.gestione_veicoli_OOP;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class VeicoloAMotore extends Veicolo {
     private final double potenza;
     private final Carburanti carburante;
@@ -24,7 +28,12 @@ public class VeicoloAMotore extends Veicolo {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + ", potenza: " + potenza + ", carburante: " + carburante;
+    public Object[] getAsArray() {
+        List<Object> list = new ArrayList<>(Arrays.asList(super.getAsArray()));
+
+        list.add(potenza);
+        list.add(carburante);
+
+        return list.toArray();
     }
 }

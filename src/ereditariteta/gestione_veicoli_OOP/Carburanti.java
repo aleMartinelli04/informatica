@@ -1,11 +1,7 @@
 package ereditariteta.gestione_veicoli_OOP;
 
 public enum Carburanti {
-    BENZINA(0),
-    DIESEL(0),
-    GPL(2),
-    METANO(6),
-    ELETTRICO(9);
+    BENZINA(0), DIESEL(0), GPL(2), METANO(6), ELETTRICO(9);
 
     private final int sconto;
 

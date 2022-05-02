@@ -1,20 +1,33 @@
 package ereditariteta.gestione_veicoli_OOP;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public abstract class Veicolo {
     private final String codice;
+    private final Date data;
     private String descrizione;
     private double prezzo;
 
     public Veicolo(String descrizione, double prezzo) {
         this.codice = UUID.randomUUID().toString();
+        this.data = new Date();
         this.descrizione = descrizione;
         this.prezzo = prezzo;
     }
 
     public String getCodice() {
         return codice;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public String getFormattedDate() {
+        return DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH).format(data);
     }
 
     public String getDescrizione() {
@@ -25,7 +38,7 @@ public abstract class Veicolo {
         this.descrizione = descrizione;
     }
 
-    public double getPrezzo() {
+    public final double getPrezzo() {
         return prezzo;
     }
 
@@ -35,8 +48,12 @@ public abstract class Veicolo {
 
     public abstract double calcolaPrezzo();
 
+    public Object[] getAsArray() {
+        return new Object[]{codice, data, descrizione, prezzo};
+    }
+
     @Override
     public String toString() {
-        return "Veicolo{" + "codice='" + codice + '\'' + ", descrizione='" + descrizione + '\'' + ", prezzo=" + prezzo + '}';
+        return descrizione;
     }
 }

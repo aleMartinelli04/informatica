@@ -1,5 +1,9 @@
 package ereditariteta.gestione_veicoli_OOP;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class VeicoloSenzaMotore extends Veicolo {
     private final int ruote;
     private boolean licenza;
@@ -28,7 +32,12 @@ public class VeicoloSenzaMotore extends Veicolo {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + ", ruote: " + ruote + ", licenza: " + (licenza ? "si" : "no");
+    public Object[] getAsArray() {
+        List<Object> list = new ArrayList<>(Arrays.asList(super.getAsArray()));
+
+        list.add(ruote);
+        list.add(licenza);
+
+        return list.toArray();
     }
 }
