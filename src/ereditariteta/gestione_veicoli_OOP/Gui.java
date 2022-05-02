@@ -4,12 +4,14 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
+import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class Gui extends JFrame {
     private JPanel mainPanel;
+    private JTabbedPane mainTabbedPane;
 
     private JTextArea inputDescrizioneField;
     private JTextField inputPrezzoField;
@@ -40,6 +42,9 @@ public class Gui extends JFrame {
     private JTextField eliminazioneCodiceVeicoloField;
     private JButton eliminazioneButton;
 
+    private JTextField statsPrezzoMaggioreField;
+    private JTextField statsPrezzoMinoreField;
+
     private final DefaultListModel<Veicolo> listModel;
 
     public Gui() throws InterruptedException {
@@ -62,6 +67,12 @@ public class Gui extends JFrame {
             visualizzazioneOrdinamentoBox.addItem(ordinamento);
         }
 
+        mainTabbedPane.addChangeListener(e -> {
+            if (mainTabbedPane.getSelectedIndex() == 3) {
+                updateStatsPanel();
+            }
+        });
+
         inputInserisciButton.addActionListener(this::inserisciVeicolo);
 
         visualizzazioneList.addListSelectionListener(this::veicoloSelezionato);
@@ -70,6 +81,28 @@ public class Gui extends JFrame {
         visualizzazioneSalvaButton.addActionListener(this::salvaModifiche);
 
         eliminazioneButton.addActionListener(this::eliminaVeicolo);
+    }
+
+    private void updateStatsPanel() {
+        List<Veicolo> veicoli = Collections.list(listModel.elements());
+
+        if (veicoli.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Non ci sono veicoli da visualizzare", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double maggiore = veicoli.stream()
+                .mapToDouble(Veicolo::getPrezzoVendita)
+                .max()
+                .getAsDouble();
+
+        double minore = veicoli.stream()
+                .mapToDouble(Veicolo::getPrezzoVendita)
+                .min()
+                .getAsDouble();
+
+        statsPrezzoMaggioreField.setText(NumberFormat.getCurrencyInstance().format(maggiore));
+        statsPrezzoMinoreField.setText(NumberFormat.getCurrencyInstance().format(minore));
     }
 
     private void eliminaVeicolo(ActionEvent ignored) {
