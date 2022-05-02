@@ -23,7 +23,7 @@ public class VeicoloAMotore extends Veicolo {
     }
 
     @Override
-    public double calcolaPrezzo() {
+    public double getPrezzoVendita() {
         return getPrezzo() * (100 - carburante.getSconto()) / 100;
     }
 

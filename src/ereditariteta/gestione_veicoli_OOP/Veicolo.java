@@ -46,7 +46,7 @@ public abstract class Veicolo {
         this.prezzo = prezzo;
     }
 
-    public abstract double calcolaPrezzo();
+    public abstract double getPrezzoVendita();
 
     public Object[] getAsArray() {
         return new Object[]{codice, data, descrizione, prezzo};

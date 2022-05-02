@@ -27,7 +27,7 @@ public class VeicoloSenzaMotore extends Veicolo {
     }
 
     @Override
-    public double calcolaPrezzo() {
+    public double getPrezzoVendita() {
         return licenza ? getPrezzo() * 0.94 + 4 * ruote : getPrezzo();
     }
 

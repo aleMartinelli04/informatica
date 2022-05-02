@@ -2,6 +2,7 @@ package ereditariteta.gestione_veicoli_OOP;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,6 +35,7 @@ public class Gui extends JFrame {
     private JButton visualizzazioneOrdinaButton;
     private JButton visualizzazioneSalvaButton;
     private JComboBox<Ordinamenti> visualizzazioneOrdinamentoBox;
+    private JTextField visualizzazionePrezzoVenditaField;
 
     private final DefaultListModel<Veicolo> listModel;
 
@@ -73,18 +75,27 @@ public class Gui extends JFrame {
             return;
         }
 
-        veicolo.setDescrizione(visualizzazioneDescrizioneField.getText());
-        veicolo.setPrezzo(Double.parseDouble(visualizzazionePrezzoField.getText()));
+        try {
+            veicolo.setDescrizione(visualizzazioneDescrizioneField.getText());
+            veicolo.setPrezzo(Double.parseDouble(visualizzazionePrezzoField.getText()));
+            visualizzazionePrezzoVenditaField.setText(String.valueOf(veicolo.getPrezzoVendita()));
 
-        if (veicolo instanceof VeicoloSenzaMotore veicoloSenzaMotore) {
-            veicoloSenzaMotore.setLicenza(visualizzazioneSiRadioButton.isSelected());
+            if (veicolo instanceof VeicoloSenzaMotore veicoloSenzaMotore) {
+                veicoloSenzaMotore.setLicenza(visualizzazioneSiRadioButton.isSelected());
+            }
+
+            JOptionPane.showMessageDialog(this, "Modifiche salvate", "Info", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Formato del prezzo non valido", "Errore", JOptionPane.ERROR_MESSAGE);
         }
-
-        JOptionPane.showMessageDialog(this, "Modifiche salvate", "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void ordinaVeicoli(ActionEvent ignored) {
         List<Veicolo> veicoli = Collections.list(listModel.elements());
+
+        ListSelectionListener listener = visualizzazioneList.getListSelectionListeners()[0];
+        visualizzazioneList.removeListSelectionListener(listener);
 
         Comparator<Veicolo> comparator = visualizzazioneOrdinamentoBox.getItemAt(visualizzazioneOrdinamentoBox.getSelectedIndex()).getComparator();
         veicoli.sort(comparator);
@@ -93,6 +104,8 @@ public class Gui extends JFrame {
         for (Veicolo v : veicoli) {
             listModel.addElement(v);
         }
+
+        visualizzazioneList.addListSelectionListener(listener);
     }
 
     private void veicoloSelezionato(ListSelectionEvent ignored) {
@@ -107,6 +120,7 @@ public class Gui extends JFrame {
         visualizzazioneDataField.setText(veicolo.getFormattedDate());
         visualizzazioneDescrizioneField.setText(veicolo.getDescrizione());
         visualizzazionePrezzoField.setText(String.valueOf(veicolo.getPrezzo()));
+        visualizzazionePrezzoVenditaField.setText(String.valueOf(veicolo.getPrezzoVendita()));
 
         if (veicolo instanceof VeicoloAMotore veicoloAMotore) {
             visualizzazioneTabbedPane.setSelectedIndex(0);
@@ -172,6 +186,8 @@ public class Gui extends JFrame {
             inputRuoteSpinner.setValue(0);
             inputSiRadioButton.setSelected(true);
 
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Inserire un numero valido", "Errore", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         }
