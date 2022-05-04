@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Veicolo {
     private final String codice;
@@ -18,6 +19,10 @@ public abstract class Veicolo {
         this.prezzo = prezzo;
     }
 
+    public static Veicolo getRandom() {
+        return ThreadLocalRandom.current().nextBoolean() ? VeicoloAMotore.getRandom() : VeicoloSenzaMotore.getRandom();
+    }
+
     public String getCodice() {
         return codice;
     }
@@ -27,7 +32,7 @@ public abstract class Veicolo {
     }
 
     public String getFormattedDate() {
-        return DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH).format(data);
+        return DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH).format(data) + " " + DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH).format(data);
     }
 
     public String getDescrizione() {

@@ -22,6 +22,7 @@ public class Gui extends JFrame {
     private JRadioButton inputSiRadioButton;
     private JRadioButton inputNoRadioButton;
     private JButton inputInserisciButton;
+    private JButton inputVeicoloRandomButton;
 
     private JTabbedPane visualizzazioneTabbedPane;
     private JTextField visualizzazioneCodiceField;
@@ -74,6 +75,7 @@ public class Gui extends JFrame {
         });
 
         inputInserisciButton.addActionListener(this::inserisciVeicolo);
+        inputVeicoloRandomButton.addActionListener(this::inserisciVeicoloRandom);
 
         visualizzazioneList.addListSelectionListener(this::veicoloSelezionato);
         visualizzazioneList.setModel(listModel);
@@ -81,6 +83,14 @@ public class Gui extends JFrame {
         visualizzazioneSalvaButton.addActionListener(this::salvaModifiche);
 
         eliminazioneButton.addActionListener(this::eliminaVeicolo);
+    }
+
+    private void inserisciVeicoloRandom(ActionEvent ignored) {
+        Veicolo veicolo = Veicolo.getRandom();
+
+        listModel.addElement(veicolo);
+
+        JOptionPane.showMessageDialog(this, "Veicolo \"" + veicolo.getDescrizione() + "\" inserito", "Inserimento", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void updateStatsPanel() {

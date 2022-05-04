@@ -17,7 +17,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="d08c7" layout-manager="GridLayoutManager" row-count="6" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="d08c7" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Inserimento"/>
@@ -172,6 +172,14 @@
                 </constraints>
                 <properties>
                   <text value="INSERISCI"/>
+                </properties>
+              </component>
+              <component id="6ef94" class="javax.swing.JButton" binding="inputVeicoloRandomButton">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="INSERISCI MACCHINA RANDOM"/>
                 </properties>
               </component>
             </children>
