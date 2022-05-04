@@ -128,6 +128,7 @@ public class Gui extends JFrame {
         JOptionPane.showMessageDialog(this, "Veicolo eliminato", "Info", JOptionPane.INFORMATION_MESSAGE);
         veicoli.remove(veicolo);
         updateJList(veicoli);
+        eliminazioneCodiceVeicoloField.setText("");
     }
 
     private void salvaModifiche(ActionEvent ignored) {

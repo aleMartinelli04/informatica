@@ -48,12 +48,8 @@ public abstract class Veicolo {
 
     public abstract double getPrezzoVendita();
 
-    public Object[] getAsArray() {
-        return new Object[]{codice, data, descrizione, prezzo};
-    }
-
     @Override
-    public String toString() {
+    public final String toString() {
         return descrizione;
     }
 }
