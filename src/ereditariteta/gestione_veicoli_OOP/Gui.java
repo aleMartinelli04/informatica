@@ -90,7 +90,7 @@ public class Gui extends JFrame {
 
         listModel.addElement(veicolo);
 
-        JOptionPane.showMessageDialog(this, "Veicolo \"" + veicolo.getDescrizione() + "\" inserito", "Inserimento", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "\"" + veicolo.getDescrizione() + "\" inserito", "Inserimento", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void updateStatsPanel() {

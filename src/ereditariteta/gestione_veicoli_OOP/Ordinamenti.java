@@ -7,6 +7,8 @@ public enum Ordinamenti {
     DATA_DESC("Data decrescente", Comparator.comparing(Veicolo::getData).reversed()),
     PREZZO_ASC("Prezzo crescente", Comparator.comparing(Veicolo::getPrezzo)),
     PREZZO_DESC("Prezzo decrescente", Comparator.comparing(Veicolo::getPrezzo).reversed()),
+    PREZZO_VENDITA_ASC("Prezzo vendita crescente", Comparator.comparing(Veicolo::getPrezzoVendita)),
+    PREZZO_VENDITA_DESC("Prezzo vendita decrescente", Comparator.comparing(Veicolo::getPrezzoVendita).reversed()),
     DESCRIZIONE_ASC("Descrizione crescente", Comparator.comparing(Veicolo::getDescrizione)),
     DESCRIZIONE_DESC("Descrizione decrescente", Comparator.comparing(Veicolo::getDescrizione).reversed());
 

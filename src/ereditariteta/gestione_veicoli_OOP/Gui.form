@@ -551,11 +551,11 @@
     </children>
   </grid>
   <buttonGroups>
-    <group name="buttonGroup1">
+    <group name="inputRadioButtonGroup">
       <member id="26f21"/>
       <member id="678a"/>
     </group>
-    <group name="buttonGroup2">
+    <group name="visualizzazioneRadioButttonGroup">
       <member id="75799"/>
       <member id="6e289"/>
     </group>
