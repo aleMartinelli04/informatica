@@ -88,6 +88,7 @@ public class Gui extends JFrame {
 
         if (veicoli.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Non ci sono veicoli da visualizzare", "Errore", JOptionPane.ERROR_MESSAGE);
+            mainTabbedPane.setSelectedIndex(0);
             return;
         }
 
